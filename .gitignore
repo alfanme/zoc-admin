@@ -5,3 +5,5 @@
 firestore-debug.log
 ui-debug.log
 .DS_Store
+firebase-debug.log
+/local_db/
