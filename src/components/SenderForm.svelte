@@ -32,7 +32,7 @@
         pengirim.keterangan = 'IG: @pempekzaskia'
     } else {
         pengirim.nama = nama
-        pengirim.hp = `HP. ${hp}`
+        pengirim.hp = hp ? `HP. ${hp}` : ''
         pengirim.keterangan = keterangan
     }
 
