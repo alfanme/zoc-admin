@@ -10,13 +10,13 @@
 </script>
 
 <div class="card">
+    <button on:click={handleDelete}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
     <div class="text-wrapper">
         <p class='penerima'>{data.penerima[0]}</p>
         <p>Pengirim: {data.pengirim[0]}</p>
     </div>
-    <button on:click={handleDelete}>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-    </button>
 </div>
 
 <style>
@@ -34,7 +34,7 @@
 
     .card {
         animation: popin 1s ease;
-        padding-left: 30px;
+        padding-right: 30px;
         margin-bottom: 15px;
         width: 100%;
         height: 75px;
@@ -61,7 +61,7 @@
         border: none;
         outline: none;
         margin: 0;
-        border-radius: 0 10px 10px 0;
+        border-radius: 10px 0 0 10px;
 
         display: grid;
         place-items: center;
