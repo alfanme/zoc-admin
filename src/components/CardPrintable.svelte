@@ -4,14 +4,14 @@
 
 <div>
     <p class="bold underline">PENERIMA</p>
-    <p class="bold">{data.penerima[0]}</p>
-    <p class="bold">{data.penerima[1]}</p>
-    <p>{data.penerima[2]}</p>
+    <p class="bold">{data.penerima.nama}</p>
+    <p class="bold">Hp. {data.penerima.hp}</p>
+    <p>{data.penerima.alamat}</p>
     <br>
     <p class="bold underline">PENGIRIM</p>
-    <p class="bold">{data.pengirim[0]}</p>
-    <p>{data.pengirim[1]}</p>
-    <p>{data.pengirim[2]}</p>
+    <p class="bold">{data.pengirim.nama}</p>
+    <p>{data.pengirim.hp}</p>
+    <p>{data.pengirim.keterangan}</p>
 </div>
 
 <style>
