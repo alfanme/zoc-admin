@@ -24,7 +24,7 @@
         value: 1,
         increment: () => jumlah.value++,
         decrement: () => {
-            jumlah.value > 0 && jumlah.value--
+            jumlah.value > 1 && jumlah.value--
         }
     }
 
