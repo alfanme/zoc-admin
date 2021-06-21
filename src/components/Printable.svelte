@@ -15,7 +15,9 @@
 
 <div class="kertas">
     {#each $selectedAlamat as s}
-        <CardPrintable data={s.data()} />
+        {#each [...Array(s.data().jumlah).keys()] as _}
+            <CardPrintable data={s.data()} />
+        {/each}
     {/each}
 </div>
 <div class='control'>
