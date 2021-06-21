@@ -20,6 +20,14 @@
         keterangan: ''
     }
 
+    let jumlah = {
+        value: 1,
+        increment: () => jumlah.value++,
+        decrement: () => {
+            jumlah.value > 0 && jumlah.value--
+        }
+    }
+
     let selected = 'Pempek Zaskia'
     let options = [
         'Pempek Zaskia',
@@ -39,12 +47,14 @@
     const handlePrint = () => {
         const key = new Date().getTime()
         db.collection('terpilih').add({
-            key,
-            penerima: [penerima.nama, penerima.hp, penerima.alamat],
-            pengirim: [pengirim.nama, pengirim.hp, pengirim.keterangan]
+            key: key,
+            jumlah: jumlah.value,
+            penerima,
+            pengirim
         })
         penerima = []
         pengirim = {}
+        jumlah = 1
         $idToEdit = ''
         handleSenderModal()
     }
@@ -73,8 +83,19 @@
             {#if selected === 'Custom'}
             <input class='field' bind:value={nama} type="text" placeholder="Nama Pengirim" required>
             <input class='field' bind:value={hp} type="text" placeholder="No. Hp Pengirim" required>
-            <input class='field' bind:value={keterangan} type="text" placeholder="Keterangan (optional)">
+            <input class='field field-bottom' bind:value={keterangan} type="text" placeholder="Keterangan (optional)">
             {/if}
+
+            <h1>Jumlah alamat</h1>
+            <div class="amount-wrapper">
+                <button on:click={jumlah.decrement}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </button>
+                <input type="number" bind:value={jumlah.value}>
+                <button on:click={jumlah.increment}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </button>
+            </div>
         </div>
         <div class="button-wrapper">
             <button on:click={handleSenderModal} class="cancel">Batalkan</button>
@@ -94,6 +115,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        padding: 50px 0;
+        overflow-y: auto;
     }
 
     .card {
@@ -147,6 +170,10 @@
         border-radius: 10px;
         padding: 15px;
         line-height: 1.5;
+    }
+
+    .field-bottom {
+        margin-bottom: 25px;
     }
 
     @media screen and (max-width: 680px) {
@@ -241,5 +268,46 @@
         margin-right: 10px;
         height: 32px;
         cursor: pointer;
+    }
+
+    .amount-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .amount-wrapper > input {
+        height: 3em;
+        width: 3em;
+        text-align: center;
+        border: none;
+        outline: none;
+    }
+
+    /* Chrome, Safari, Edge, Opera */
+    .amount-wrapper > input::-webkit-outer-spin-button,
+    .amount-wrapper > input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    .amount-wrapper > input[type=number] {
+        -moz-appearance: textfield;
+    }
+
+    .amount-wrapper > button {
+        display: grid;
+        place-items: center;
+        height: 3em;
+        width: 3em;
+        border-radius: 1.5em;
+        background: #eee;
+        color: #333;
+    }
+
+    .amount-wrapper > button:active {
+        background: #f5f5f5;
+        color: #888;
     }
 </style>
