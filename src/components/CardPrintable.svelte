@@ -28,6 +28,7 @@
 
     p {
         color: var(--tint-color);
+        font-size: 14px;
         line-height: 1.5;
         text-transform: uppercase;
     }
