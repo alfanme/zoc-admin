@@ -3,6 +3,8 @@
     import CardPrintable from './CardPrintable.svelte'
     import {selectedAlamat} from '../store';
 
+    let tintColor = '#000'
+
     const handlePrint = () => {
         window.focus()
         window.print()
@@ -16,13 +18,17 @@
 <div class="kertas">
     {#each $selectedAlamat as s}
         {#each [...Array(s.data().jumlah).keys()] as _}
-            <CardPrintable data={s.data()} />
+            <CardPrintable data={s.data()} {tintColor} />
         {/each}
     {/each}
 </div>
 <div class='control'>
     <button on:click={handlePrint} class="print">PRINT SEKARANG</button>
     <button on:click={handleMainMenu} class="home">MENU UTAMA</button>
+    <div class="color-picker">
+        <label for="color">Pilih warna: </label>
+        <input type="color" bind:value={tintColor} class="picker">
+    </div>
 </div>
 
 <style>
@@ -98,5 +104,17 @@
         .control {
             display: none;
         }
+    }
+
+    .color-picker {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 16px;
+    }
+    .picker {
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
     }
 </style>

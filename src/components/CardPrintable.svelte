@@ -1,8 +1,9 @@
 <script>
     export let data
+    export let tintColor
 </script>
 
-<div>
+<div style="--tint-color: {tintColor}">
     <p class="bold underline">PENERIMA</p>
     <p class="bold">{data.penerima.nama}</p>
     <p class="bold">Hp. {data.penerima.hp}</p>
@@ -22,11 +23,11 @@
         margin: 0;
         padding: 20px;
         background: #fff;
-        border: 1px solid #000;
+        border: 1px solid var(--tint-color);
     }
 
     p {
-        color: #000;
+        color: var(--tint-color);
         line-height: 1.5;
         text-transform: uppercase;
     }
