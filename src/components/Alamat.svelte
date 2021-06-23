@@ -50,28 +50,37 @@
 </script>
 
 <Navbar />
-<section>
-    <main>
-        <div class='alamat-header'>
-            <h1>Temukan Alamat</h1>
-            <button on:click={handleAddModal}>TAMBAH DATA</button>
+<section class="grid grid-cols-4 gap-8 w-full p-6 pb-32">
+    <main class="col-start-1 col-end-4">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-xl font-medium tracking-wide">Temukan Alamat</h1>
+            <button on:click={handleAddModal}
+                class="px-6 h-10 text-sm font-medium tracking-wide bg-blue-900 hover:bg-blue-700 rounded-full"
+            >
+                TAMBAH DATA</button>
         </div>
-        <input bind:value={search} type="text" placeholder='Cari nama pelanggan'>
-        <p class='found'>Ditemukan {filtered.length} dari {$results.length} alamat</p>
-        <div class='alamat-wrapper'>
+        <input bind:value={search} type="text" placeholder='Cari nama pelanggan'
+            class="px-6 h-12 w-full rounded-full bg-gray-800 hover:bg-gray-900 focus:bg-gray-900 hover:ring-4 focus:ring-4 focus:outline-none"
+        >
+        {#if filtered.length}
+            <p class="my-6 text-center">Ditemukan {filtered.length} dari {$results.length} alamat</p>
+        {:else}
+            <p class="my-6 text-center text-red-400">Data tidak ditemukan ...</p>
+        {/if}
+        <div class="grid grid-cols-3 gap-6">
             {#if filtered.length}
                 {#each filtered as flt }
                     <CardAlamat id={flt.id} penerima={flt.data()} {handleEditModal} {handleSenderModal} />
                 {/each}
-            {:else}
-                <p class='no-data'>Data tidak ditemukan...</p>
             {/if}
         </div>
     </main>
-    <aside>
-        <div class='alamat-header'>
-            <h1>Alamat Terpilih</h1>
-            <button on:click={handlePrint}>PRINT</button>
+    <aside class="col-start-4 col-end-5">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-xl font-medium tracking-wide">Alamat Terpilih</h1>
+            <button on:click={handlePrint}
+                class="px-6 h-10 text-sm font-medium tracking-wide bg-blue-900 hover:bg-blue-700 rounded-full"
+            >PRINT</button>
         </div>
         <SelectedAlamat />
     </aside>
@@ -89,117 +98,3 @@
 {#if $showSenderModal}
     <SenderForm {handleSenderModal} />
 {/if}
-
-<style>
-    section {
-        width: 100%;
-        padding: 25px;
-        display: grid;
-        grid-template-columns: 960px auto;
-        column-gap: 25px;
-    }
-
-    @media screen and (max-width: 680px) {
-        section {
-            display: flex;
-            flex-direction: column-reverse;
-        }
-    }
-
-    main {
-        width: 100%;
-    }
-
-    @media screen and (max-width: 680px) {
-        main {
-            padding-top: 50px;
-        }
-    }
-
-    aside {
-        width: 100%;
-        padding-left: 25px;
-        border-left: 1px solid #eee;
-    }
-
-    @media screen and (max-width: 680px) {
-        aside {
-            padding-left: 0;
-            padding-bottom: 25px;
-            border-left: none;
-            border-bottom: 1px solid #eee;
-        }
-    }
-
-    .alamat-header {
-        width: 100%;
-        margin-bottom: 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    button {
-        padding: 10px;
-        background: none;
-        margin: 0;
-        border: none;
-        border-radius: 5px;
-        outline: none;
-        color: #4088FF;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    button:hover {
-        background: #eaf4ff;
-    }
-
-    .alamat-wrapper {
-        margin-top: 10px;
-        width: 100%;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-    }
-
-    @media screen and (max-width: 680px) {
-        .alamat-wrapper {
-            display: flex;
-            flex-direction: column;
-        }
-    }
-
-    input {
-        width: 100%;
-        border: 1px solid #ccc;
-        outline: none;
-        border-radius: 10px;
-        padding: 15px;
-    }
-
-    @media screen and (max-width: 680px) {
-        input {
-            padding: 15px;
-            font-size: 16px;
-        }
-    }
-
-    input:hover {
-        border: 1px solid #eee;
-    }
-
-    input:focus {
-        box-shadow: 0 0 0 3px #4088FF;
-    }
-
-    .no-data {
-        margin-top: 25px;
-        margin-left: 30px;
-    }
-
-    .found {
-        margin: 25px 0;
-        color: #333;
-    }
-</style>

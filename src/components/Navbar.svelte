@@ -8,51 +8,12 @@
     }
 </script>
 
-<div>
-    <nav>
-        <h1>ZOC [Admin App]</h1>
-        <button on:click={handleLogout}>Log out</button>
+<div class="sticky top-0 z-50 px-6 h-16 bg-gray-800 border-t-4 border-t-blue-700">
+    <nav class="flex justify-between items-center h-full">
+        <h1 class="text-2xl font-medium">ZOC Admin <span class="text-xs">v.2</span></h1>
+        <button on:click={handleLogout}
+            class="px-6 h-10 bg-gray-900 hover:bg-red-500 hover:bg-opacity-25 text-red-400 rounded-full text-sm font-medium tracking-wide uppercase focus:outline-none"
+        >
+            Logout</button>
     </nav>
 </div>
-
-<style>
-    div {
-        height: 80px;
-        padding: 0 25px;
-        background: #eee;
-        border: 1px solid #eee;
-    }
-
-    nav {
-        height: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    button {
-        width: 100px;
-        height: 40px;
-        margin: 0;
-        border: none;
-        border-radius: 0;
-        outline: none;
-        color: #fff;
-        background: red;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        border-radius: 10px;
-    }
-
-    @media screen and (max-width: 680px) {
-        button {
-            font-size: 16px;
-            border-radius: 7.5px;
-        }
-    }
-
-    button:hover, button:active {
-        background: #fff;
-        color: red;
-    }
-</style>

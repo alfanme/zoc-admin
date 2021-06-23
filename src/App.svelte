@@ -5,6 +5,7 @@
 	import Alamat from './components/Alamat.svelte'
 	import Printable from './components/Printable.svelte'
 	import NotFound from './components/NotFound.svelte'
+	import Tailwind from './components/Tailwind.svelte'
 	import {isLogged} from './store'
 
 	$: if ($isLogged) {
@@ -37,6 +38,7 @@
 
 </script>
 
+<Tailwind />
 
 <div>
 	<Router {routes} />
