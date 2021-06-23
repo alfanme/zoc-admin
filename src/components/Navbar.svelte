@@ -8,51 +8,74 @@
     }
 </script>
 
-<div>
+<header>
+    <h1>ZOC Admin <span>v.2</span></h1>
     <nav>
-        <h1>ZOC [Admin App]</h1>
-        <button on:click={handleLogout}>Log out</button>
+        <div>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd" />
+            </svg>
+            <p>{"Ahmad Alfan"}</p>
+        </div>
+        <button on:click={handleLogout}>Logout</button>
     </nav>
-</div>
+</header>
 
-<style>
-    div {
-        height: 80px;
-        padding: 0 25px;
-        background: #eee;
-        border: 1px solid #eee;
-    }
+<style lang="scss">
+    @import "../scss/_mixins.scss";
+    @import "../scss/_colors.scss";
+    @import "../scss/_buttons.scss";
 
-    nav {
-        height: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+    $nav-height: 4em;
 
-    button {
-        width: 100px;
-        height: 40px;
-        margin: 0;
-        border: none;
-        border-radius: 0;
-        outline: none;
-        color: #fff;
-        background: red;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        border-radius: 10px;
-    }
+    header {
+        position: sticky;
+        top: 0;
+        z-index: 999;
 
-    @media screen and (max-width: 680px) {
-        button {
-            font-size: 16px;
-            border-radius: 7.5px;
+        @include flex-row-between-center;
+        padding: 0 2em;
+        height: $nav-height;
+
+        background: $white;
+        border-bottom: 2px solid $light-gray;
+
+        h1 {
+            font-size: 1.5rem;
+            letter-spacing: 0.02rem;
+
+            span {
+                font-size: 1rem;
+            }
         }
-    }
 
-    button:hover, button:active {
-        background: #fff;
-        color: red;
+        nav {
+            @include flex-row-center;
+            gap: 2em;
+
+            div {
+                @include flex-row-center;
+                gap: 0.5em;
+                color: $blue;
+
+                @media (max-width: 768px) {
+                    display: none;
+                }
+
+                svg {
+                    height: 2rem;
+                    width: 2rem;
+                }
+
+                p {
+                    font-weight: bold;
+                    letter-spacing: 0.02rem;
+                }
+            }
+
+            button {
+                @include button-danger;
+            }
+        }
     }
 </style>

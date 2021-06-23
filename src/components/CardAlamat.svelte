@@ -17,7 +17,7 @@
 
 </script>
 
-<div class='card'>
+<div class="card">
     <div class="text-wrapper">
         <p class='nama'>{penerima.nama}</p>
         <p>Hp. {penerima.hp}</p>
@@ -26,64 +26,56 @@
 
     <div class='buttons-wrapper'>
         <button on:click={deleteAlamat} class='delete'>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+            </svg>
         </button>
         <button on:click={() => {
             handleEditModal()
             getId()
         }} class='edit'>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+                <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
+            </svg>
         </button>
         <button on:click={() => {
             handleSenderModal()
             getId()
-        }} class='print'>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-printer"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
-            <span>Print</span>
+        }} class='select'>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <span>Pilih</span>
         </button>
     </div>
 </div>
 
-<style>
+<style lang="scss">
+    @import "../scss/_mixins.scss";
+    @import "../scss/_colors.scss";
+    @import "../scss/_buttons.scss";
     .card {
+        @include flex-col;
+        padding: 1em;
+
         width: 100%;
         height: 100%;
-        background: #fff;
-        border: 1px solid #eee;
-        border-radius: 10px;
-        position: relative;
-        transition: all 0.3s ease;
-    }
-
-    @media screen and (max-width: 680px) {
-        .card {
-            width: 100%;
-            font-size: 16px;
-        }
+        background: $white;
+        border: 2px solid $light-gray;
+        border-radius: 0.5em;
     }
 
     .text-wrapper {
-        height: calc(100% - 50px);
-        padding: 30px;
-    }
-
-    @media screen and (max-width: 680px) {
-        .text-wrapper {
-            padding: 25px;
-        }
-    }    
+        flex: auto;
+        padding: 0.5em;
+        margin-bottom: 1.5em;
+    }   
 
     .buttons-wrapper {
-        margin-top: auto;
         width: 100%;
-        height: 50px;
-        display: grid;
-        grid-template-columns: 1fr 1fr 3fr;
-    }
-
-    .card:hover {
-        border: 1px solid #ccc;
-        transform: scale(1.025);
+        display: flex;
+        gap: 1em;
     }
 
     p {
@@ -98,45 +90,25 @@
         font-weight: bold;
     }
 
-    button {
-        margin: 0;
-        width: 100%;
-        height: 100%;
-        border-radius: 0;
-        display: grid;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: #333;
-        background: #eee;
-        border: none;
-        cursor: pointer;
-        transition: all 0.3s ease;
+    .select {
+        @include button-primary;
+        flex: auto;
     }
 
-    button:hover {
-        color: #fff;
-    }
-
-    .print {
-        color: #fff;
-        background: #4088FF;
-        border-bottom-right-radius: 7.5px;
-    }
-
-    .edit:hover, .edit:active {
-        background: orange;
+    .edit {
+        @include button-circle-warning;
     }
 
     .delete {
-        border-bottom-left-radius: 7.5px;
-    }
-
-    .delete:hover, .delete:active {
-        background: red;
+        @include button-circle-danger;
     }
 
     span {
         margin-left: 10px;
+    }
+
+    svg {
+        width: 1.5rem;
+        height: 1.5rem;
     }
 </style>

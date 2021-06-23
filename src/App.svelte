@@ -37,7 +37,6 @@
 
 </script>
 
-
 <div>
 	<Router {routes} />
 </div>

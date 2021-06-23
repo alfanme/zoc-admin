@@ -90,7 +90,9 @@
     <SenderForm {handleSenderModal} />
 {/if}
 
-<style>
+<style lang="scss">
+    @import "../scss/_buttons.scss";
+
     section {
         width: 100%;
         padding: 25px;
@@ -140,19 +142,7 @@
     }
 
     button {
-        padding: 10px;
-        background: none;
-        margin: 0;
-        border: none;
-        border-radius: 5px;
-        outline: none;
-        color: #4088FF;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    button:hover {
-        background: #eaf4ff;
+        @include button-secondary;
     }
 
     .alamat-wrapper {
