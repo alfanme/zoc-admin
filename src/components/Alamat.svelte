@@ -32,6 +32,10 @@
         return ( r.nama.toLowerCase().indexOf(s) !== -1 )
     })
 
+    const handleResetSearch = () => {
+        search = ''
+    }
+
     const handleAddModal = () => {
         $showAddModal = !$showAddModal;
     }
@@ -56,7 +60,12 @@
             <h1>Temukan Alamat</h1>
             <button on:click={handleAddModal}>TAMBAH DATA</button>
         </div>
-        <input bind:value={search} type="text" placeholder='Cari nama pelanggan'>
+        <div class='search-container'>
+            <input bind:value={search} type="text" placeholder='Cari nama pelanggan'>
+            {#if search.length}
+            <button on:click={handleResetSearch} class='reset-button'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+            {/if}
+        </div>
         <p class='found'>Ditemukan {filtered.length} dari {$results.length} alamat</p>
         <div class='alamat-wrapper'>
             {#if filtered.length}
@@ -75,7 +84,6 @@
         </div>
         <SelectedAlamat />
     </aside>
-    
 </section>
 
 {#if $showAddModal}
@@ -95,8 +103,8 @@
         width: 100%;
         padding: 25px;
         display: grid;
-        grid-template-columns: 960px auto;
-        column-gap: 25px;
+        grid-template-columns: minmax(0, 1fr) 20rem;
+        column-gap: 2rem;
     }
 
     @media screen and (max-width: 680px) {
@@ -118,8 +126,6 @@
 
     aside {
         width: 100%;
-        padding-left: 25px;
-        border-left: 1px solid #eee;
     }
 
     @media screen and (max-width: 680px) {
@@ -159,7 +165,7 @@
         margin-top: 10px;
         width: 100%;
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 20px;
     }
 
@@ -170,12 +176,22 @@
         }
     }
 
+    .search-container {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .reset-button {
+        width: 4rem;
+    }
+
     input {
         width: 100%;
         border: 1px solid #ccc;
         outline: none;
         border-radius: 10px;
         padding: 15px;
+        margin: 0;
     }
 
     @media screen and (max-width: 680px) {
