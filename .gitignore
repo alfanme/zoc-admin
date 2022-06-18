@@ -1,9 +1,9 @@
 /node_modules/
 /dist
 /.firebase/
-/src/database/
 firestore-debug.log
 ui-debug.log
 .DS_Store
 firebase-debug.log
 /local_db/
+.env
