@@ -1,25 +1,5 @@
 <script>
-    import {onMount, onDestroy} from 'svelte'
     import {auth} from '../database/firebase'
-    import {isLogged} from '../store'
-
-    let unsubscribe
-
-    onMount(() => {
-        unsubscribe = auth.onAuthStateChanged((user) => {
-            if (user) {
-                $isLogged = true
-            } else {
-                $isLogged = false
-            }
-            console.log('-- onAuthChanged --', $isLogged)
-        });
-    })
-    
-    onDestroy(() => {
-        unsubscribe()
-        console.log('-- unsubscribed onAuthChanged --', unsubscribe)
-    })
 
     let email
     let password
