@@ -8,16 +8,19 @@
     import EditAlamatForm from './EditAlamatForm.svelte'
     import SenderForm from './SenderForm.svelte'
     import SelectedAlamat from './SelectedAlamat.svelte'
+    import Loading from './Loading.svelte'
     import {results, showAddModal, showEditModal, showSenderModal} from '../store'
 
     let search = ''
 
     let unsubscribe
+    let isLoadingAddresses = true;
     
     onMount(() => {
         unsubscribe = db.collection('alamat').orderBy('key', 'desc').onSnapshot( data => {
             $results = data.docs
             console.log('-- onSnapshot --', $results)
+            isLoadingAddresses = false
         })
     })
 
@@ -51,6 +54,39 @@
     const handlePrint = () => {
         push('/print')
     }
+
+    let isDownloading = false
+
+    const handleDownload = async () => {
+        isDownloading = true
+
+        await fetch(`${import.meta.env.VITE_FIREBASE_FUNCTIONS_BASE_URL}/generatePdf`, {
+            method: 'GET',
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not OK');
+            }
+            
+            const filename = response.headers
+                .get('Content-Disposition')
+                .split(';')
+                .map(part => part.trim())
+                .find(part => part.startsWith('filename='))
+                .split('=')[1];
+            
+            const link = document.createElement('a');
+            link.href = response.url;
+            link.download = filename;
+            link.click();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        })
+        .finally(() => {
+            isDownloading = false
+        })
+    }
 </script>
 
 <Navbar />
@@ -66,23 +102,44 @@
             <button on:click={handleResetSearch} class='reset-button'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
             {/if}
         </div>
-        <p class='found'>Ditemukan {filtered.length} dari {$results.length} alamat</p>
-        <div class='alamat-wrapper'>
-            {#if filtered.length}
-                {#each filtered as flt }
-                    <CardAlamat id={flt.id} penerima={flt.data()} {handleEditModal} {handleSenderModal} />
-                {/each}
-            {:else}
-                <p class='no-data'>Data tidak ditemukan...</p>
-            {/if}
-        </div>
+        {#if isLoadingAddresses}
+            <div class='loading-container'>
+                <Loading />
+            </div>
+        {:else}
+            <p class='found'>Ditemukan {filtered.length} dari {$results.length} alamat</p>
+            <div class='alamat-wrapper'>
+                {#if filtered.length}
+                    {#each filtered as flt }
+                        <CardAlamat id={flt.id} penerima={flt.data()} {handleEditModal} {handleSenderModal} />
+                    {/each}
+                {:else}
+                    <p class='no-data'>Data tidak ditemukan...</p>
+                {/if}
+            </div>
+        {/if}
     </main>
     <aside>
         <div class='alamat-header'>
             <h1>Alamat Terpilih</h1>
-            <button on:click={handlePrint}>PRINT</button>
+            <div class='button-group'>
+                <button on:click={handlePrint}>PRINT</button>
+                <button on:click={handleDownload}>
+                    {#if isDownloading}
+                        <Loading size='2' />
+                    {:else}
+                        DOWNLOAD
+                    {/if}
+                </button>
+            </div>
         </div>
-        <SelectedAlamat />
+        {#if isLoadingAddresses}
+            <div class='loading-container'>
+                <Loading />
+            </div>
+        {:else}
+            <SelectedAlamat />
+        {/if}
     </aside>
 </section>
 
@@ -159,6 +216,19 @@
 
     button:hover {
         background: #eaf4ff;
+    }
+
+    .button-group {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
+    .loading-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 25px 0;
     }
 
     .alamat-wrapper {
