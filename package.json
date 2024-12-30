@@ -14,7 +14,7 @@
         "vite": "^2.9.18"
     },
     "dependencies": {
-        "firebase": "8.10.1",
+        "firebase": "10.9.0",
         "svelte-spa-router": "^3.1.0"
     }
 }
